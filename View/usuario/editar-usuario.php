@@ -1,3 +1,15 @@
+<?php
+	require("../../Model/conexao.php");
+
+	$cpf = $_GET['cpf'];
+
+	$sql = "SELECT * FROM usuario WHERE CPF = '".$cpf."'";
+
+	$result = mysqli_query($con, $sql);
+
+	$row = mysqli_fetch_array($result)
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -65,7 +77,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="listar-usuario.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Usuario</span></a>
             </li>
@@ -101,7 +113,7 @@
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Cadastrar Usuário
+                        <i class="fas fa-user"></i> Editar Usuário
 
                     </div>
 
@@ -112,13 +124,13 @@
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus">
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" disabled>
                                                 <label for="nome">Nome Completo</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required">
+                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" disabled>
                                                 <label for="cpf">CPF</label>
                                             </div>
                                         </div>
@@ -126,37 +138,22 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required">
+                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required" value="<?php echo $row['email']; ?>">
                                         <label for="inputEmail">Email</label>
                                     </div>
                                 </div>
+                              
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="password" id="inputPassword" class="form-control" name="senha" placeholder="Password" required="required">
-                                                <label for="inputPassword">Senha</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="password" id="confirmPassword" class="form-control" name="confirmaSenha" placeholder="Confirm password" required="required">
-                                                <label for="confirmPassword">Confirme a Senha</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
+                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus" value="<?php echo $row['endereco']; ?>">
                                                 <label for="end">Endereço</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required">
+                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required" value="<?php echo $row['telefone']; ?>">
                                                 <label for="inputFone">Telefone</label>
                                             </div>
                                         </div>
@@ -166,10 +163,19 @@
                                     <b>Tipo de Usuario:</b>
                                 </div>
                                 <select class="custom-select custom-select-lg mb-3" name="tipoUser">
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Usuario Comum</option>
+                                    <?php if($row['tipo']==1){
+                                        echo'
+                                        <option value="1" selected>Administrador</option>
+                                        <option value="2">Usuario Comum</option>';}
+                                        else{
+                                            echo'
+                                        <option value="1" >Administrador</option>
+                                        <option value="2" selected >Usuario Comum</option>';
+                                        }
+                                    ?>
+                                   
                                     </select>
-                                <input type="hidden" name="acao" value="1">
+                                <input type="hidden" name="acao" value="2">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>

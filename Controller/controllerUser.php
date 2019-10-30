@@ -39,7 +39,7 @@
 
         case 1:
 
-        include("../View/usuario/usario.html");
+        include("../View/usuario/cadastrar-usuario.html");
 
         if($senha == $confirmaSenha){
           
@@ -68,14 +68,14 @@
                     Swal.fire({
                         type: "error",
                         title: "Oops...",
-                        text: "Senha diferentes",
+                        text: "ERRO",
                         showConfirmButton: false,
                         timer: 1500
                       }) 
                       setTimeout(home, 1500);
                       
                       function home() {
-                        window.location="../View/usuario/usario.php";
+                        window.location="../View/usuario/cadastrar-usuario.html";
                       }
                         </script>
                     ';    
