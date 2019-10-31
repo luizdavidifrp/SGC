@@ -203,6 +203,35 @@ else{
               }
 
               break;
+
+              case 3:
+
+              $cpf=$_GET['cpf'];
+
+              $deletar=mysqli_query($con,"DELETE FROM usuario WHERE CPF='".$cpf."'");
+
+              if($deletar){
+
+                echo '<script>window.location="../View/usuario/listar-usuario.php"</script>'; 
+              }else{
+                echo '<script type="text/javascript">
+                    Swal.fire({
+                        type: "error",
+                        title: "Oops...",
+                        text: "ERRO!",
+                        showConfirmButton: false,
+                        timer: 1500
+                      }) 
+                      setTimeout(home, 1500);
+                      
+                      function home() {
+                        window.location="../View/usuario/listar-usuario.php";
+                      }
+                        </script>
+                    '; 
+              }
+
+              break;            
         
         }
  
