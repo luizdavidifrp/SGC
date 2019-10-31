@@ -107,7 +107,10 @@
                     <li class="breadcrumb-item">
                         <a href="../home.html">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Usuário</li>
+                    <li class="breadcrumb-item">
+                        <a href="listar-usuario.php">Usuário</a>
+                    </li>
+                    <li class="breadcrumb-item active">Editar Usuário</li>
                 </ol>
 
                 <!-- DataTables Example -->
@@ -119,18 +122,18 @@
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerUser.php">
+                            <form method="POST" action="../../Controller/controllerUser.php?acao=2">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" disabled>
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" readonly>
                                                 <label for="nome">Nome Completo</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" disabled>
+                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" readonly>
                                                 <label for="cpf">CPF</label>
                                             </div>
                                         </div>

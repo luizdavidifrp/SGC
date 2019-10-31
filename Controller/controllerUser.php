@@ -1,18 +1,7 @@
 <?php
-    require("../Model/conexao.php");
-   
+    require "../Model/conexao.php";
+    $acao=$_GET['acao'];
     
-
-    $nome= $_POST['nome'];
-    $cpf=$_POST['cpf'];
-    $email= $_POST['email'];
-    $senha=$_POST['senha'];
-    $confirmaSenha= $_POST['confirmaSenha'];
-    $end=$_POST['end'];
-    $tel= $_POST['tel'];
-    $tipo=$_POST['tipoUser'];
-    $acao=$_POST['acao'];
-   
     echo'
     <header>
     <!-- Custom fonts for this template-->
@@ -39,8 +28,40 @@
 
         case 1:
 
+        $nome= $_POST['nome'];
+        $cpf=$_POST['cpf'];
+        $email= $_POST['email'];
+        $senha=$_POST['senha'];
+        $confirmaSenha= $_POST['confirmaSenha'];
+        $end=$_POST['end'];
+        $tel= $_POST['tel'];
+        $tipo=$_POST['tipoUser'];
+        
+
         include("../View/usuario/cadastrar-usuario.html");
 
+        $verEmail=mysqli_query($con,"SELECT * FROM usuario WHERE email='".$email."'");
+
+    if(mysqli_num_rows($verEmail)>1){
+
+      echo '<script type="text/javascript">
+      Swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: "Email Já Cadastrado!",
+          showConfirmButton: false,
+          timer: 1500
+        }) 
+        setTimeout(home, 1500);
+        
+        function home() {
+          window.location="../View/usuario/cadastrar-usuario.html";
+        }
+          </script>
+      ';    
+
+    }
+else{
         if($senha == $confirmaSenha){
           
         $result_usuario = "INSERT INTO usuario (CPF,senha,nome,telefone,endereco,tipo,email) VALUES ('".$cpf."','".$senha."','".$nome."','".$tel."','".$end."','".$tipo."','".$email."')";
@@ -68,7 +89,7 @@
                     Swal.fire({
                         type: "error",
                         title: "Oops...",
-                        text: "ERRO",
+                        text: "CPF Já Cadastrado!",
                         showConfirmButton: false,
                         timer: 1500
                       }) 
@@ -103,22 +124,86 @@
         ';
 
         }
-        
+      }
         break;
 
         case 2:
 
+        $nome= $_POST['nome'];
+        $cpf=$_POST['cpf'];
+        $email= $_POST['email'];
+        $end=$_POST['end'];
+        $tel= $_POST['tel'];
+        $tipo=$_POST['tipoUser'];
         
+
+        include("../View/usuario/cadastrar-usuario.html");
+
+        $verEmail=mysqli_query($con,"SELECT * FROM usuario WHERE email='".$email."'");
+
+        if(mysqli_num_rows($verEmail)>0){
+    
+          echo '<script type="text/javascript">
+          Swal.fire({
+              type: "error",
+              title: "Oops...",
+              text: "Email Já Cadastrado!",
+              showConfirmButton: false,
+              timer: 1500
+            }) 
+            setTimeout(home, 1500);
+            
+            function home() {
+              window.location="../View/usuario/editar-usuario.php";
+            }
+              </script>
+          ';    
+    
+        }
+    else{
+
+        $result_usuario = "UPDATE usuario SET telefone='$tel',endereco='$end',tipo='$tipo',email='$email' WHERE CPF='$cpf'";
+        //$resultado_usuario = mysqli_query($con, $result_usuario);
+        $result=mysqli_query($con,$result_usuario);
+
+        if($result){
+                    echo '<script type="text/javascript">
+                    Swal.fire({
+  
+                        type: "success",
+                        title: "Atualizado com sucesso",
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                      setTimeout(home, 1500);
+                      
+                      function home() {
+                        window.location="../View/usuario/listar-usuario.php";
+                      }
+                        </script>
+                    ';    
+                }
+                else{                    
+                    echo '<script type="text/javascript">
+                    Swal.fire({
+                        type: "error",
+                        title: "Oops...",
+                        text: "CPF Já Cadastrado!",
+                        showConfirmButton: false,
+                        timer: 1500
+                      }) 
+                      setTimeout(home, 1500);
+                      
+                      function home() {
+                        window.location="../View/usuario/editar-usuario.php";
+                      }
+                        </script>
+                    ';    
+                }
+              }
+
+              break;
         
-
-
-
-
-
-
-
-
-
-    }
+        }
  
 ?>

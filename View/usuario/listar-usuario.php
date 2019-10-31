@@ -28,6 +28,8 @@
     <link href="../css/sb-admin.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
 
+   
+
 </head>
 
 <body id="page-top">
@@ -150,10 +152,30 @@
                                                         if($row['tipo']==1)echo"Administrador";
                                                         else echo"Usuario Comum";
                                                         
-                                                        echo "</td>
-                                                        <td><a href='editar-usuario.php?cpf=".$row['CPF']."'><img class='botaol' src='../edit.png' ></a></td>
-                                                        <td><a href='https://www.w3schools.com'><img class='botaol' src='../exc.png' ></a></td>
-                                                      </tr>";
+                                                        echo '</td>
+                                                        <td><a href="editar-usuario.php?cpf='.$row['CPF'].'"><img class="botaol" src="../edit.png"></a></td>
+                                                        <td><img class="botaol" src="../exc.png" onclick="delete()"></td>
+                                                        <script>
+
+                                                        function delete(){
+                                                            Swal.fire({
+                                                            title: "Are you sure?",
+                                                            text: "You wont be able to revert this!",
+                                                            type: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#3085d6",
+                                                            cancelButtonColor: "#d33",
+                                                            confirmButtonText: "Yes, delete it!"
+                                                            }).then((result) => {
+                                                            if (result.value) {
+                                                                window.location="../../Controller/controllerUser.php";
+                                                                )
+                                                  }
+                                                })
+                                                        }
+                                                    
+                                                    </script>
+                                                      </tr>';
                                         }
                                     ?>
                                    

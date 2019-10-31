@@ -95,7 +95,10 @@
                     <li class="breadcrumb-item">
                         <a href="../home.html">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Usuário</li>
+                    <li class="breadcrumb-item">
+                        <a href="listar-usuario.php">Usuário</a>
+                    </li>
+                    <li class="breadcrumb-item active">Cadastrar Usuário</li>
                 </ol>
 
                 <!-- DataTables Example -->
@@ -107,7 +110,7 @@
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerUser.php">
+                            <form method="POST" action="../../Controller/controllerUser.php?acao=1">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
@@ -169,7 +172,6 @@
                                     <option value="1">Administrador</option>
                                     <option value="2">Usuario Comum</option>
                                     </select>
-                                <input type="hidden" name="acao" value="1">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>
