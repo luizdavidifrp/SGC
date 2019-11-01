@@ -10,7 +10,7 @@
     </head>';
 
     require("../../Model/conexao.php");
-    $stmt = "SELECT * FROM usuario";
+    $stmt = "SELECT * FROM fabricante";
     $result = mysqli_query($con, $stmt);
 
 ?>
@@ -80,7 +80,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="../usuario/listar-usuario.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Usuario</span></a>
             </li>
@@ -95,7 +95,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -110,14 +110,14 @@
                     <li class="breadcrumb-item">
                         <a href="../home.html">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Usuário</li>
+                    <li class="breadcrumb-item active">Fabricante</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Lista de Usuário
-                        <button class="btn-custom" onclick="window.location.href='cadastrar-usuario.html'"> Adicionar Usuário</button>
+                        <i class="fas fa-user"></i> Lista de Fabricante
+                        <button class="btn-custom" onclick="window.location.href='cadastrar-fabri.html'">Adicionar Fabricante</button>
                     </div>
 
                     <div class="card-body">
@@ -125,24 +125,20 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>CPF</th>
+                                        <th>ID</th>
                                         <th>Nome</th>
-                                        <th>E-mail</th>
                                         <th>Telefone</th>
-                                        <th>Endereço</th>
-                                        <th>Tipo</th>
+                                        <th width="400">Endereço</th>
                                         <th>Editar</th>
                                         <th>Excluir</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>CPF</th>
+                                        <th>ID</th>
                                         <th>Nome</th>
-                                        <th>E-mail</th>
                                         <th>Telefone</th>
                                         <th>Endereço</th>
-                                        <th>Tipo</th>
                                         <th>Editar</th>
                                         <th>Excluir</th>
                                     </tr>
@@ -151,18 +147,14 @@
                                     <?php
                                         while($row = mysqli_fetch_array($result)){
                                             echo "  <tr>
-                                                        <td>".$row['CPF']."</td>
+                                                        <td>".$row['id_frabricante']."</td>
                                                         <td>".$row['nome']."</td>
-                                                        <td>".$row['email']."</td>
                                                         <td>".$row['telefone']."</td>
                                                         <td>".$row['endereco']."</td>
-                                                        <td>";
-                                                        
-                                                        if($row['tipo']==1)echo"Administrador";
-                                                        else echo"Usuario Comum";
-                                                        
-                                                        echo '</td>
-                                                        <td><a href="editar-usuario.php?cpf='.$row['CPF'].'"><img class="botaol" src="../edit.png"></a></td>                                                  
+                                                        ";
+                                                                                                          
+                                                        echo '
+                                                        <td><a href="editar-fabri.php?id='.$row['id_frabricante'].'"><img class="botaol" src="../edit.png"></a></td>                                                  
                                                         <td><img class="botaol"  onclick="aa()" src="../exc.png"></td>
                                                         <script> 
                                                         function aa(){
@@ -181,7 +173,7 @@
                                                                     "Dados deletados com sucesso.",
                                                                     "success"
                                                                   )
-                                                                  window.location="../../Controller/controllerUser.php?cpf='.$row['CPF'].'&acao=3";
+                                                                  window.location="../../Controller/controllerFabri.php?id='.$row['id_frabricante'].'&acao=3";
                                                                 }
                                                               })
 

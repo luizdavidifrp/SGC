@@ -1,9 +1,9 @@
 <?php
 	require("../../Model/conexao.php");
 
-	$cpf = $_GET['cpf'];
+	$id = $_GET['id'];
 
-	$sql = "SELECT * FROM usuario WHERE CPF = '".$cpf."'";
+	$sql = "SELECT * FROM fabricante WHERE id_frabricante = '".$id."'";
 
 	$result = mysqli_query($con, $sql);
 
@@ -108,77 +108,44 @@
                         <a href="../home.html">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="listar-usuario.php">Usuário</a>
+                        <a href="listar-fabri.php">Fabricante</a>
                     </li>
-                    <li class="breadcrumb-item active">Editar Usuário</li>
+                    <li class="breadcrumb-item active">Editar Fabricante</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Editar Usuário
+                        <i class="fas fa-user"></i>Editar Fabricante
 
                     </div>
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerUser.php?acao=2">
+                            <form method="POST" action="../../Controller/controllerFabri.php?acao=2&id=<?php echo $id ?>">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" readonly>
-                                                <label for="nome">Nome Completo</label>
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>">
+                                                <label for="nome">Nome</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" readonly>
-                                                <label for="cpf">CPF</label>
+                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required"  value="<?php echo $row['telefone']; ?>">
+                                                <label for="inputFone">Telefone</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required" value="<?php echo $row['email']; ?>">
-                                        <label for="inputEmail">Email</label>
+                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['endereco']; ?>">
+                                        <label for="end">Endereço</label>
                                     </div>
                                 </div>
-                              
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus" value="<?php echo $row['endereco']; ?>">
-                                                <label for="end">Endereço</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required" value="<?php echo $row['telefone']; ?>">
-                                                <label for="inputFone">Telefone</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tipoUser">
-                                    <b>Tipo de Usuario:</b>
-                                </div>
-                                <select class="custom-select custom-select-lg mb-3" name="tipoUser">
-                                    <?php if($row['tipo']==1){
-                                        echo'
-                                        <option value="1" selected>Administrador</option>
-                                        <option value="2">Usuario Comum</option>';}
-                                        else{
-                                            echo'
-                                        <option value="1" >Administrador</option>
-                                        <option value="2" selected >Usuario Comum</option>';
-                                        }
-                                    ?>
-                                   
-                                    </select>
-                                <input type="hidden" name="acao" value="2">
+
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>

@@ -92,7 +92,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="../fabricante/listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
