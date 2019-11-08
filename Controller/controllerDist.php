@@ -40,7 +40,10 @@
         $result=mysqli_query($con,$result_usuario);
 
         if($result){
-                    echo '<script type="text/javascript">
+                    echo '
+                    
+
+                    <script type="text/javascript">
                     Swal.fire({
   
                         type: "success",
@@ -48,7 +51,7 @@
                         showConfirmButton: false,
                         timer: 1500
                       })
-                      setTimeout(home, 1500);
+                      setTimeout(home, 10);
                       
                       function home() {
                         window.location="../View/distribuidor/listar-dis.php";
@@ -132,7 +135,7 @@
 
               $deletar=mysqli_query($con,"DELETE FROM distribuidoras WHERE id_distribuidora='".$id."'");
 
-              if($deletar){
+             if($deletar){
 
                 echo '<script>window.location="../View/distribuidor/listar-dis.php"</script>'; 
               }else{

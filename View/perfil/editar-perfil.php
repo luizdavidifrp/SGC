@@ -1,3 +1,15 @@
+<?php
+	require("../../Model/conexao.php");
+
+	$cpf = $_GET['cpf'];
+
+	$sql = "SELECT * FROM usuario WHERE CPF = '".$cpf."'";
+
+	$result = mysqli_query($con, $sql);
+
+	$row = mysqli_fetch_array($result)
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -37,8 +49,8 @@
     </button>
 
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
+     <!-- Navbar -->
+     <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle fa-fw"></i>
@@ -79,7 +91,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="listar-fabri.php">
+                <a class="nav-link" href="../fabricante/listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -95,44 +107,61 @@
                         <a href="../home.html">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="listar-fabri.php">Fabricante</a>
+                        <a href="listar-perfil.php">Perfil</a>
                     </li>
-                    <li class="breadcrumb-item active">Cadastrar Fabricante</li>
+                    <li class="breadcrumb-item active">Editar Perfil</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Cadastrar Fabricante
+                        <i class="fas fa-user"></i> Editar Usuário
 
                     </div>
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerFabri.php?acao=1">
+                            <form method="POST" action="../../Controller/controllerPerfil.php?acao=1&emailG=<?php echo $row['email'] ?>">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus">
-                                                <label for="nome">Nome</label>
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" readonly>
+                                                <label for="nome">Nome Completo</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required">
-                                                <label for="inputFone">Telefone</label>
+                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" readonly>
+                                                <label for="cpf">CPF</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
-                                        <label for="end">Endereço</label>
+                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required" value="<?php echo $row['email']; ?>">
+                                        <label for="inputEmail">Email</label>
                                     </div>
                                 </div>
-
+                              
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus" value="<?php echo $row['endereco']; ?>">
+                                                <label for="end">Endereço</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required" value="<?php echo $row['telefone']; ?>">
+                                                <label for="inputFone">Telefone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="acao" value="1">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>
@@ -183,7 +212,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

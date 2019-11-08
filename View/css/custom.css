@@ -14,6 +14,29 @@
     margin-left: 70%;
 }
 
+.btn-custom-p {
+    color: rgb(255, 255, 255);
+    background-color: rgb(194, 20, 20);
+    position: absolute;
+    border: none;
+    font-weight: 500;
+    padding: 7px 10px 7px 10px;
+    font-size: 10pt;
+    border-radius: 5px;
+    left: 980px;
+}
+
+.btn-custom-dis {
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 110, 194);
+    border: none;
+    font-weight: 500;
+    padding: 7px 10px 7px 10px;
+    font-size: 10pt;
+    border-radius: 5px;
+    margin-left: 60%;
+}
+
 #nchave {
     width: 50%;
 }

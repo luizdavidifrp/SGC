@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php 
 
+    echo '<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    </head>';
+
+    require("../../Model/conexao.php");
+    $stmt = "SELECT * FROM usuario";
+    $result = mysqli_query($con, $stmt);
+
+    $row = mysqli_fetch_array($result);
+
+?>
 <head>
 
     <meta charset="utf-8">
@@ -8,7 +23,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
 
     <title>SGC - Chaves</title>
 
@@ -24,6 +38,9 @@
     <link href="../css/sb-admin.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
 
+
+
+
 </head>
 
 <body id="page-top">
@@ -37,14 +54,14 @@
     </button>
 
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
+     <!-- Navbar -->
+     <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="../perfil/listar-perfil.php">Perfil</a>
+                    <a class="dropdown-item" href="#">Perfil</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
                 </div>
@@ -79,7 +96,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="listar-fabri.php">
+                <a class="nav-link" href="../fabricante/listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -94,68 +111,75 @@
                     <li class="breadcrumb-item">
                         <a href="../home.html">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <a href="listar-fabri.php">Fabricante</a>
-                    </li>
-                    <li class="breadcrumb-item active">Cadastrar Fabricante</li>
+                    <li class="breadcrumb-item active">Perfil</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Cadastrar Fabricante
-
+                        <i class=""></i> <b>Dados Pessoais</b>
+                        <button class="btn-custom-p" onclick="window.location.href='editar-perfil.php?cpf=<?php echo $row['CPF'] ?>'"> Mudar Senha</button>
+                        <button class="btn-custom" onclick="window.location.href='editar-perfil.php?cpf=<?php echo $row['CPF'] ?>'"> Editar Perfil</button>
                     </div>
 
                     <div class="card-body">
-                        <div class="table">
-                            <form method="POST" action="../../Controller/controllerFabri.php?acao=1">
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus">
-                                                <label for="nome">Nome</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required">
-                                                <label for="inputFone">Telefone</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
-                                        <label for="end">Endereço</label>
-                                    </div>
-                                </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                               
+                                <tbody>
+                                    <?php
+                                       
+                                            echo "  <tr>
+                                                        <td><b>CPF:</b> ".$row['CPF']."</td>
+                                                    </tr>
+                                                    <tr>    
+                                                        <td><b>Nome:</b> ".$row['nome']."</td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td><b>E-mail:</b> ".$row['email']."</td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td><b>Telefone:</b> ".$row['telefone']."</td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td><b>Endereço:</b>".$row['endereco']."</td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td><b>Tipo de Usuario:</b> ";
+                                                        
+                                                        if($row['tipo']==1)echo"Administrador";
+                                                        else echo"Usuario Comum";
+                                                        
+                                                        echo '</td></tr>';
+                                        
+                                    ?>
+                                   
 
+                                </tbody>
+                            </table>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-block">
-                        </form>
+                    </div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
+
+                <p class="small text-center text-muted my-5">
+                    <em>More table examples coming soon...</em>
+                </p>
+
+            </div>
+            <!-- /.container-fluid -->
+
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2019</span>
                     </div>
                 </div>
-
-            </div>
-
+            </footer>
 
         </div>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
 
     </div>
     <!-- /#wrapper -->

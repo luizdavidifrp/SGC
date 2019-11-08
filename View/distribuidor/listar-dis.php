@@ -52,17 +52,16 @@
     </button>
 
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
+           <!-- Navbar -->
+           <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
+                    <a class="dropdown-item" href="../perfil/listar-perfil.php">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
                 </div>
             </li>
         </ul>
@@ -73,7 +72,7 @@
 
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="../home.html">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span>
@@ -89,7 +88,7 @@
                     <i class="fas fa-fw fa-key"></i>
                     <span>Chaves</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-door"></i>
                     <span>Distribuidoras</span></a>
@@ -117,7 +116,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <i class="fas fa-user"></i> Lista de Distribuidor
-                        <button class="btn-custom" onclick="window.location.href='cadastrar-dis.html'">Adicionar Distribuidor</button>
+                        <button class="btn-custom-dis" onclick="window.location.href='cadastrar-dis.html'">Adicionar Distribuidor</button>
                     </div>
 
                     <div class="card-body">
@@ -237,22 +236,24 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+     <!-- Bootstrap core JavaScript-->
+     <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
 
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
 
 </body>
 
