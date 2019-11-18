@@ -20,8 +20,10 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
-    
+   
     </header>
+
+    <body background="../View/chaves.png"> 
     ';
 
     switch($acao){
@@ -33,8 +35,7 @@
         $tel= $_POST['tel'];
              
 
-        include("../View/distribuidor/cadastrar-dis.html");
-
+    
                 
         $result_usuario = "INSERT INTO distribuidoras (id_distribuidora,nome,telefone,endereco) VALUES (NULL,'".$nome."','".$tel."','".$end."')";
         $result=mysqli_query($con,$result_usuario);
@@ -70,7 +71,7 @@
                       setTimeout(home, 1500);
                       
                       function home() {
-                        window.location="../View/distribuidor/cadastrar-dis.html";
+                        window.location="../View/distribuidor/cadastrar-dis.php";
                       }
                         </script>
                     ';    
@@ -86,7 +87,7 @@
         $tel= $_POST['tel'];
         
 
-        include("../View/distribuidor/cadastrar-dis.html");
+       
 
         $result_usuario = "UPDATE distribuidoras SET nome='$nome',telefone='$tel',endereco='$end' WHERE id_distribuidora='$id'";
         $result=mysqli_query($con,$result_usuario);

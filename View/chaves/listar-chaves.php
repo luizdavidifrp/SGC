@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php 
 
+    echo '<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    </head>';
+
+    require("../../Model/conexao.php");
+    $stmt = "SELECT * FROM chaves";
+    $result = mysqli_query($con, $stmt);
+
+    session_start();
+    if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+{
+  unset($_SESSION['cpf']);
+  unset($_SESSION['senha']);
+  header('location:../index.html');
+  }
+ 
+$logado = $_SESSION['cpf'];
+
+?>
 <head>
 
     <meta charset="utf-8">
@@ -23,6 +46,9 @@
     <link href="../css/sb-admin.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
 
+
+
+
 </head>
 
 <body id="page-top">
@@ -36,17 +62,16 @@
     </button>
 
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
+     <!-- Navbar -->
+     <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
+                    <a class="dropdown-item" href="../perfil/listar-perfil.php">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    <a class="dropdown-item" href="../../Controller/controllerLogout.php" >Sair</a>
                 </div>
             </li>
         </ul>
@@ -58,15 +83,15 @@
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../home.html">
+                <a class="nav-link" href="../home.php">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../usuario/listar-usuario.php">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Usuário</span></a>
+                    <span>Usuario</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">
@@ -74,12 +99,12 @@
                     <span>Chaves</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="../distribuidor/listar-dis.php">
                     <i class="fas fa-fw fa-door"></i>
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="../fabricante/listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -92,7 +117,7 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="../home.html">Home</a>
+                        <a href="../home.php">Home</a>
                     </li>
                     <li class="breadcrumb-item active">Chaves</li>
                 </ol>
@@ -100,8 +125,8 @@
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-key"></i> Lista de Chaves
-                        <button class="btn-custom" href="chaves.html"> Adicionar Chaves</button>
+                        <i class="fas fa-user"></i> Lista de Chaves
+                        <button class="btn-custom" onclick="window.location.href='cadastrar-chaves.php'"> Adicionar Chave</button>
                     </div>
 
                     <div class="card-body">
@@ -109,91 +134,69 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                    <th>ID</th>
                                         <th>Nº</th>
-                                        <th>Fabricante</th>
-                                        <th>Distribuidora</th>
                                         <th>Quantidade</th>
                                         <th>Preço</th>
+                                        <th>Distribuidora</th>
+                                        <th>Fabricante</th>
                                         <th>Editar</th>
                                         <th>Excluir</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Nº</th>
-                                        <th>Fabricante</th>
-                                        <th>Distribuidora</th>
                                         <th>Quantidade</th>
                                         <th>Preço</th>
+                                        <th>Distribuidora</th>
+                                        <th>Fabricante</th>
                                         <th>Editar</th>
                                         <th>Excluir</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>112</td>
-                                        <td>Papaiz</td>
-                                        <td>Dovale</td>
-                                        <td>12</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
+                                    <?php
+                                        while($row = mysqli_fetch_array($result)){
+                                            echo "  <tr>
+                                                        <td>".$row['id_chave']."</td>
+                                                        <td>".$row['num_chave']."</td>
+                                                        <td>".$row['quantidade']."</td>
+                                                        <td>".$row['preco']."</td>
+                                                        <td>".$row['nome_distribuidora']."</td>
+                                                        <td>".$row['nome_frabricante']."";
+                                                     
+                                                        echo '</td>
+                                                        <td><a href="editar-chaves.php?id='.$row['id_chave'].'"><img class="botaol" src="../edit.png"></a></td>                                                  
+                                                        <td><img class="botaol"  onclick="aa()" src="../exc.png"></td>
+                                                        <script> 
+                                                        function aa(){
+                                                            Swal.fire({
+                                                                title: "Tem certeza?",
+                                                                text: "Os dados serao deletados do sistema!",
+                                                                type: "warning",
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: "#3085d6",
+                                                                cancelButtonColor: "#d33",
+                                                                confirmButtonText: "Sim, deletar!"
+                                                              }).then((result) => {
+                                                                if (result.value) {
+                                                                  Swal.fire(
+                                                                    "Deletado!",
+                                                                    "Dados deletados com sucesso.",
+                                                                    "success"
+                                                                  )
+                                                                  window.location="../../Controller/controllerCha.php?id='.$row['id_chave'].'&acao=3";
+                                                                }
+                                                              })
 
-                                    </tr>
-                                    <tr>
-                                        <td>43</td>
-                                        <td>Papaiz</td>
-                                        <td>Gold</td>
-                                        <td>35</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
-                                    <tr>
-                                        <td>28</td>
-                                        <td>Stam</td>
-                                        <td>Dovale</td>
-                                        <td>16</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
-                                    <tr>
-                                        <td>989</td>
-                                        <td>Pado</td>
-                                        <td>Jas</td>
-                                        <td>12</td>
-                                        <td>R$10,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1040</td>
-                                        <td>Aliança</td>
-                                        <td>Land</td>
-                                        <td>3</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
-                                    <tr>
-                                        <td>512</td>
-                                        <td>Papaiz</td>
-                                        <td>Gold</td>
-                                        <td>67</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
-                                    <tr>
-                                        <td>676</td>
-                                        <td>3F</td>
-                                        <td>Dovale</td>
-                                        <td>78</td>
-                                        <td>R$5,00</td>
-                                        <td>Icone Editar</td>
-                                        <td>Icone Excluir</td>
-                                    </tr>
+                                                        }
+                                                             </script>
+                                                      </tr>';
+                                        }
+                                    ?>
+                                   
 
                                 </tbody>
                             </table>
@@ -249,21 +252,23 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
 
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
 
 </body>
 

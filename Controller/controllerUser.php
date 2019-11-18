@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="sweetalert2.min.css">
     
     </header>
+
+    <body background="../View/chaves.png"> 
     ';
 
     switch($acao){
@@ -38,7 +40,6 @@
         $tipo=$_POST['tipoUser'];
         
 
-        include("../View/usuario/cadastrar-usuario.html");
 
         $verEmail=mysqli_query($con,"SELECT * FROM usuario WHERE email='".$email."'");
 
@@ -55,7 +56,7 @@
         setTimeout(home, 1500);
         
         function home() {
-          window.location="../View/usuario/cadastrar-usuario.html";
+          window.location="../View/usuario/cadastrar-usuario.php";
         }
           </script>
       ';    
@@ -96,7 +97,7 @@ else{
                       setTimeout(home, 1500);
                       
                       function home() {
-                        window.location="../View/usuario/cadastrar-usuario.html";
+                        window.location="../View/usuario/cadastrar-usuario.php";
                       }
                         </script>
                     ';    
@@ -118,7 +119,7 @@ else{
               setTimeout(home, 1500);
               
               function home() {
-                window.location="../View/usuario/cadastrar-usuario.html";
+                window.location="../View/usuario/cadastrar-usuario.php";
               }
             </script>
         ';
@@ -137,7 +138,7 @@ else{
         $tipo=$_POST['tipoUser'];
         
 
-        include("../View/usuario/cadastrar-usuario.html");
+       
 
         $verEmail=mysqli_query($con,"SELECT * FROM usuario WHERE email='".$email."'");
 

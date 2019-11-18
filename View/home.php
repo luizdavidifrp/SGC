@@ -1,3 +1,15 @@
+<?php
+session_start();
+if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+{
+  unset($_SESSION['cpf']);
+  unset($_SESSION['senha']);
+  header('location:index.html');
+  }
+ 
+$logado = $_SESSION['cpf'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +55,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="perfil/listar-perfil.php">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
+                 <a class="dropdown-item" href="../Controller/controllerLogout.php" >Sair</a>
                 </div>
             </li>
         </ul>
@@ -65,7 +77,7 @@
                     <span>Usuário</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="chaves/listar-chaves.html">
+                <a class="nav-link" href="chaves/listar-chaves.php">
                     <i class="fas fa-fw fa-key"></i>
                     <span>Chaves</span></a>
             </li>
@@ -100,7 +112,7 @@
             </div>
 
             <!-- Area Chart Example-->
-            <img src="body.png" alt="" srcset="">
+           <!-- <img src="body.png" alt="" srcset="">-->
             <!--<div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-chart-area"></i> Saida de chaves</div>

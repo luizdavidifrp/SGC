@@ -30,15 +30,39 @@
 
         case 1:
 
-        $nome= $_POST['nome'];
-        $end=$_POST['end'];
-        $tel= $_POST['tel'];
-             
+        $num= $_POST['num'];
+        $quant=$_POST['quant'];
+        $preco= $_POST['pre'];
+        $dis=$_POST['dis'];
+        $fabri= $_POST['fabri'];
+               
 
-       
 
-                
-        $result_usuario = "INSERT INTO fabricante (id_frabricante,nome,telefone,endereco) VALUES (NULL,'".$nome."','".$tel."','".$end."')";
+        $verChave=mysqli_query($con,"SELECT * FROM chaves WHERE num_chave='".$num."' AND nome_frabricante='".$fabri."' AND nome_distribuidora='".$dis."'");
+
+    if(mysqli_num_rows($verChave)>1){
+
+      echo '<script type="text/javascript">
+      Swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: "Email Já Cadastrado!",
+          showConfirmButton: false,
+          timer: 1500
+        }) 
+        setTimeout(home, 10);
+        
+        function home() {
+          window.location="../View/chaves/cadastrar-chaves.php";
+        }
+          </script>
+      ';    
+
+    }
+else{
+                 
+        $result_usuario = "INSERT INTO chaves (id_chave,num_chave,quantidade,preco,nome_frabricante,nome_distribuidora) VALUES (NULL,'".$num."','".$quant."','".$preco."','".$fabri."','".$dis."')";
+        //$resultado_usuario = mysqli_query($con, $result_usuario);
         $result=mysqli_query($con,$result_usuario);
 
         if($result){
@@ -50,10 +74,10 @@
                         showConfirmButton: false,
                         timer: 1500
                       })
-                      setTimeout(home, 1500);
+                      setTimeout(home, 10);
                       
                       function home() {
-                        window.location="../View/fabricante/listar-fabri.php";
+                        window.location="../View/chaves/listar-chaves.php";
                       }
                         </script>
                     ';    
@@ -62,32 +86,33 @@
                     Swal.fire({
                         type: "error",
                         title: "Oops...",
-                        text: "ERROR",
+                        text: "ERRO!",
                         showConfirmButton: false,
                         timer: 1500
                       }) 
-                      setTimeout(home, 1500);
+                      setTimeout(home, 10);
                       
                       function home() {
-                        window.location="../View/fabricante/cadastrar-fabri.php";
+                        window.location="../View/chaves/cadastrar-chaves.php";
                       }
                         </script>
                     ';    
                 }
         
+        }
+        
         break;
 
         case 2:
-        
-        $id=$_GET['id'];
-        $nome= $_POST['nome'];
-        $end=$_POST['end'];
-        $tel= $_POST['tel'];
-        
 
-        
+          $id=$_GET['id'];
 
-        $result_usuario = "UPDATE fabricante SET nome='$nome',telefone='$tel',endereco='$end' WHERE id_frabricante='$id'";
+       
+        $quant=$_POST['quant'];
+        $preco= $_POST['pre'];
+    
+
+        $result_usuario = "UPDATE chaves SET quantidade='$quant',preco='$preco' WHERE id_chave='$id'";
         $result=mysqli_query($con,$result_usuario);
 
         if($result){
@@ -99,10 +124,10 @@
                         showConfirmButton: false,
                         timer: 1500
                       })
-                      setTimeout(home, 1500);
+                      setTimeout(home, 10);
                       
                       function home() {
-                        window.location="../View/fabricante/listar-fabri.php";
+                        window.location="../View/chaves/listar-chaves.php";
                       }
                         </script>
                     ';    
@@ -112,31 +137,29 @@
                     Swal.fire({
                         type: "error",
                         title: "Oops...",
-                        text: "ERROR",
+                        text: "ERRO!",
                         showConfirmButton: false,
                         timer: 1500
                       }) 
-                      setTimeout(home, 1500);
+                      setTimeout(home, 10);
                       
                       function home() {
-                        window.location="../View/fabricante/editar-fabri.php";
+                        window.location="../View/chaves/editar-chaves.php";
                       }
                         </script>
-                    ';    
-                }
-              
-
+                    '; }   
+               
               break;
 
               case 3:
 
               $id=$_GET['id'];
 
-              $deletar=mysqli_query($con,"DELETE FROM fabricante WHERE id_frabricante='".$id."'");
+              $deletar=mysqli_query($con,"DELETE FROM chaves WHERE id_chave='".$id."'");
 
               if($deletar){
 
-                echo '<script>window.location="../View/fabricante/listar-fabri.php"</script>'; 
+                echo '<script>window.location="../View/chaves/listar-chaves.php"</script>'; 
               }else{
                 echo '<script type="text/javascript">
                     Swal.fire({
@@ -149,7 +172,7 @@
                       setTimeout(home, 1500);
                       
                       function home() {
-                        window.location="../View/fabricante/listar-fabri.php";
+                        window.location="../View/chaves/listar-chaves.php";
                       }
                         </script>
                     '; 

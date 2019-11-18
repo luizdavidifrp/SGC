@@ -1,5 +1,7 @@
-<?php 
-
+<?php
+session_start();
+unset($_SESSION['cpf']);
+session_destroy();
 
 echo'
 <header>
@@ -25,22 +27,6 @@ echo'
 <body background="../View/chaves.png"> 
 ';
 
-require("../Model/conexao.php");
-
-session_start();
-
-$cpf = $_POST['cpf'];
-$senha = $_POST['senha'];
-
-
-$result = mysqli_query($con,"SELECT * FROM usuario WHERE CPF=$cpf AND senha=$senha");
-
-if(mysqli_num_rows($result)>0)
-{
-$_SESSION['cpf'] = $cpf;
-$_SESSION['senha'] = $senha;
-
-
 echo ('
 <script>
 
@@ -48,43 +34,16 @@ echo ('
 Swal.fire({
   
   type: "success",
-  title: "Sucesso",
+  title: "Deslogado com Sucesso",
   showConfirmButton: false,
   timer: 1500
 })
 setTimeout(home, 1500);
 
 function home() {
-  window.location="../View/home.php";
+  window.location=" ../View/index.html";
 }
 </script>');
 
-
-}
-else{
-
-  
-echo ('
-
-<script> 
-
-Swal.fire({
-  type: "error",
-  title: "Oops...",
-  text: "Login e senha incorretos",
-  showConfirmButton: false,
-  timer: 1500
-}) 
-setTimeout(home, 1500);
-
-function home() {
-  window.location="../View/index.html";
-}
-</script>');
-  unset ($_SESSION['cpf']);
-  unset ($_SESSION['senha']);
-
-   
-  }
-
+exit;
 ?>

@@ -15,6 +15,19 @@
 
     $row = mysqli_fetch_array($result);
 
+
+    session_start();
+    if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+    {
+      unset($_SESSION['cpf']);
+      unset($_SESSION['senha']);
+      header('location:../index.html');
+      }
+     
+    $logado = $_SESSION['cpf'];
+
+
+
 ?>
 <head>
 
@@ -63,7 +76,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
+                 <a class="dropdown-item" href="../../Controller/controllerLogout.php" >Sair</a>
                 </div>
             </li>
         </ul>
@@ -75,7 +88,7 @@
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../home.html">
+                <a class="nav-link" href="../home.php">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span>
                 </a>
@@ -86,7 +99,7 @@
                     <span>Usuario</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../chaves/listar-chaves.html">
+                <a class="nav-link" href="../chaves/listar-chaves.php">
                     <i class="fas fa-fw fa-key"></i>
                     <span>Chaves</span></a>
             </li>
@@ -109,7 +122,7 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="../home.html">Home</a>
+                        <a href="../home.php">Home</a>
                     </li>
                     <li class="breadcrumb-item active">Perfil</li>
                 </ol>

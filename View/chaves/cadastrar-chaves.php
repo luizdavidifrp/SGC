@@ -1,3 +1,29 @@
+<?php
+
+require("../../Model/conexao.php");
+
+$sql = "SELECT nome FROM distribuidoras";
+
+$result = mysqli_query($con, $sql);
+
+
+$sql2 = "SELECT nome FROM fabricante";
+
+$result2 = mysqli_query($con, $sql2);
+
+session_start();
+if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+{
+  unset($_SESSION['cpf']);
+  unset($_SESSION['senha']);
+  header('location:../index.html');
+  }
+ 
+$logado = $_SESSION['cpf'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,30 +72,29 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="../perfil/listar-perfil.php">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
+                 <a class="dropdown-item" href="../../Controller/controllerLogout.php" >Sair</a>
                 </div>
             </li>
         </ul>
 
     </nav>
-
     <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../home.html">
+                <a class="nav-link" href="../home.php">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../usuario/listar-usuario.php">
+                <a class="nav-link" href="listar-usuario.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Usuario</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../chaves/listar-chaves.html">
+                <a class="nav-link" href="../chaves/listar-chaves.php">
                     <i class="fas fa-fw fa-key"></i>
                     <span>Chaves</span></a>
             </li>
@@ -79,7 +104,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="listar-fabri.php">
+                <a class="nav-link" href="../fabricante/listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -92,67 +117,92 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="../home.html">Home</a>
+                        <a href="../home.php">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="listar-fabri.php">Fabricante</a>
+                        <a href="listar-usuario.php">Chaves</a>
                     </li>
-                    <li class="breadcrumb-item active">Cadastrar Fabricante</li>
+                    <li class="breadcrumb-item active">Cadastrar Chaves</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Cadastrar Fabricante
+                        <i class="fas fa-user"></i> Cadastrar Chaves
 
                     </div>
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerFabri.php?acao=1">
+                            <form method="POST" action="../../Controller/controllerCha.php?acao=1">
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus">
-                                                <label for="nome">Nome</label>
+                                                <input type="text" id="num" name="num" class="form-control" placeholder="Número da chave" required="required" autofocus="autofocus">
+                                                <label for="num">Número da chave</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required">
-                                                <label for="inputFone">Telefone</label>
+                                                <input type="number" id="quant" class="form-control" name="quant" placeholder="Quantidade" required="required">
+                                                <label for="quant">Quantidade</label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
-                                        <label for="end">Endereço</label>
-                                    </div>
-                                </div>
 
+
+                                        <div class="col-md-4">
+                                            <div class="form-label-group">
+                                                <input type="text" id="pre" class="form-control" name="pre" placeholder="Preço da chave" required="required">
+                                                <label for="pre">Preço da chave</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-block">
-                        </form>
                     </div>
-                </div>
-
+                    <div id="tipoUser">
+                                    <b>Distribuidora:</b>
+                                </div>
+                    <select class="custom-select custom-select-lg mb-3" name="dis">
+                    <option selected>Escolha a distribuidora</option>
+                                    <?php while($row = mysqli_fetch_array($result)){
+                                        echo"<option>".$row['nome']."</option>";}
+                                    ?>
+                                   
+                                    </select>
+                                    <div id="tipoUser">
+                                    <b>Fabricante:</b>
+                                </div>
+                                    <select class="custom-select custom-select-lg mb-3" name="fabri">
+                                    <option selected>Escolha a fabricante</option>
+                                    <?php while($row2 = mysqli_fetch_array($result2) ){
+                                        echo"<option>".$row2['nome']."</option>";}
+                                    ?>
+                                   
+                                    </select>
+                   
+                    </div>
+                    
+                                   <input type="submit" class="btn btn-primary btn-block">
+                </form>
             </div>
-
-
         </div>
-        <!-- /.container-fluid -->
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
-                </div>
+    </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
             </div>
-        </footer>
+        </div>
+    </footer>
 
     </div>
     <!-- /.content-wrapper -->

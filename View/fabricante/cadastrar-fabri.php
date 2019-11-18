@@ -1,26 +1,13 @@
 <?php
-	require("../../Model/conexao.php");
-
-	$cpf = $_GET['cpf'];
-
-	$sql = "SELECT * FROM usuario WHERE CPF = '".$cpf."'";
-
-	$result = mysqli_query($con, $sql);
-
-    $row = mysqli_fetch_array($result)
-    
-  
-    session_start();
-    if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
-    {
-      unset($_SESSION['cpf']);
-      unset($_SESSION['senha']);
-      header('location:../index.html');
-      }
-     
-    $logado = $_SESSION['cpf'];
-
-
+session_start();
+if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+{
+  unset($_SESSION['cpf']);
+  unset($_SESSION['senha']);
+  header('location:../index.html');
+  }
+ 
+$logado = $_SESSION['cpf'];
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +49,8 @@
     </button>
 
 
-     <!-- Navbar -->
-     <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <!-- Navbar -->
+        <ul class="navbar-nav ml-auto ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle fa-fw"></i>
@@ -89,7 +76,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="listar-usuario.php">
+                <a class="nav-link" href="../usuario/listar-usuario.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Usuario</span></a>
             </li>
@@ -104,7 +91,7 @@
                     <span>Distribuidoras</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../fabricante/listar-fabri.php">
+                <a class="nav-link" href="listar-fabri.php">
                     <i class="fas fa-fw fa-tool"></i>
                     <span>Fabricantes</span></a>
             </li>
@@ -120,77 +107,44 @@
                         <a href="../home.php">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="listar-usuario.php">Usuário</a>
+                        <a href="listar-fabri.php">Fabricante</a>
                     </li>
-                    <li class="breadcrumb-item active">Editar Usuário</li>
+                    <li class="breadcrumb-item active">Cadastrar Fabricante</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Editar Usuário
+                        <i class="fas fa-user"></i> Cadastrar Fabricante
 
                     </div>
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerUser.php?acao=2">
+                            <form method="POST" action="../../Controller/controllerFabri.php?acao=1">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus"  value="<?php echo $row['nome']; ?>" readonly>
-                                                <label for="nome">Nome Completo</label>
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus">
+                                                <label for="nome">Nome</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required" value="<?php echo $row['CPF']; ?>" readonly>
-                                                <label for="cpf">CPF</label>
+                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required">
+                                                <label for="inputFone">Telefone</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required" value="<?php echo $row['email']; ?>">
-                                        <label for="inputEmail">Email</label>
+                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
+                                        <label for="end">Endereço</label>
                                     </div>
                                 </div>
-                              
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus" value="<?php echo $row['endereco']; ?>">
-                                                <label for="end">Endereço</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-label-group">
-                                                <input type="text" id="inputFone" class="form-control" name="tel" placeholder="Telefone" maxlength="11" required="required" value="<?php echo $row['telefone']; ?>">
-                                                <label for="inputFone">Telefone</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tipoUser">
-                                    <b>Tipo de Usuario:</b>
-                                </div>
-                                <select class="custom-select custom-select-lg mb-3" name="tipoUser">
-                                    <?php if($row['tipo']==1){
-                                        echo'
-                                        <option value="1" selected>Administrador</option>
-                                        <option value="2">Usuario Comum</option>';}
-                                        else{
-                                            echo'
-                                        <option value="1" >Administrador</option>
-                                        <option value="2" selected >Usuario Comum</option>';
-                                        }
-                                    ?>
-                                   
-                                    </select>
-                                <input type="hidden" name="acao" value="2">
+
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>
@@ -241,7 +195,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

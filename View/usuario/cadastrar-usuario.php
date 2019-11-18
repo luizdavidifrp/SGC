@@ -1,3 +1,15 @@
+<?php
+session_start();
+if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
+{
+  unset($_SESSION['cpf']);
+  unset($_SESSION['senha']);
+  header('location:../index.html');
+  }
+ 
+$logado = $_SESSION['cpf'];
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,35 +58,34 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="../perfil/listar-perfil.php">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Sair</a>
+                 <a class="dropdown-item" href="../../Controller/controllerLogout.php" >Sair</a>
                 </div>
             </li>
         </ul>
 
     </nav>
-
     <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../home.html">
+                <a class="nav-link" href="../home.php">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../usuario/listar-usuario.php">
+                <a class="nav-link" href="listar-usuario.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Usuario</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="../chaves/listar-chaves.html">
+                <a class="nav-link" href="../chaves/listar-chaves.php">
                     <i class="fas fa-fw fa-key"></i>
                     <span>Chaves</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="listar-dis.php">
+                <a class="nav-link" href="../distribuidor/listar-dis.php">
                     <i class="fas fa-fw fa-door"></i>
                     <span>Distribuidoras</span></a>
             </li>
@@ -92,30 +103,68 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="../home.html">Home</a>
+                        <a href="../home.php">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="listar-dis.php">Distribuidor</a>
+                        <a href="listar-usuario.php">Usuário</a>
                     </li>
-                    <li class="breadcrumb-item active">Cadastrar Distribuidor</li>
+                    <li class="breadcrumb-item active">Cadastrar Usuário</li>
                 </ol>
 
                 <!-- DataTables Example -->
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user"></i> Cadastrar Distribuidor
+                        <i class="fas fa-user"></i> Cadastrar Usuário
 
                     </div>
 
                     <div class="card-body">
                         <div class="table">
-                            <form method="POST" action="../../Controller/controllerDist.php?acao=1">
+                            <form method="POST" action="../../Controller/controllerUser.php?acao=1">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="required" autofocus="autofocus">
-                                                <label for="nome">Nome</label>
+                                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome Completo" required="required" autofocus="autofocus">
+                                                <label for="nome">Nome Completo</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="text" id="cpf" class="form-control" name="cpf" placeholder="CPF" required="required">
+                                                <label for="cpf">CPF</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required">
+                                        <label for="inputEmail">Email</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="password" id="inputPassword" class="form-control" name="senha" placeholder="Password" required="required">
+                                                <label for="inputPassword">Senha</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="password" id="confirmPassword" class="form-control" name="confirmaSenha" placeholder="Confirm password" required="required">
+                                                <label for="confirmPassword">Confirme a Senha</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-label-group">
+                                                <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
+                                                <label for="end">Endereço</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -126,13 +175,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <input type="text" id="end" class="form-control" name="end" placeholder="Nome Completo" required="required" autofocus="autofocus">
-                                        <label for="end">Endereço</label>
-                                    </div>
+                                <div id="tipoUser">
+                                    <b>Tipo de Usuario:</b>
                                 </div>
-
+                                <select class="custom-select custom-select-lg mb-3" name="tipoUser">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Usuario Comum</option>
+                                    </select>
                         </div>
                         <input type="submit" class="btn btn-primary btn-block">
                         </form>
