@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if((!isset ($_SESSION['cpf']) == true) and (!isset ($_SESSION['senha']) == true))
 {
@@ -39,7 +40,7 @@ $logado = $_SESSION['cpf'];
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-        <a class="navbar-brand mr-1" href="home.html">SGC - Luiz</a>
+        <a class="navbar-brand mr-1" href="home.php">SGC - Luiz</a>
 
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -97,6 +98,8 @@ $logado = $_SESSION['cpf'];
 
             <div class="container-fluid">
 
+            
+
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -111,45 +114,65 @@ $logado = $_SESSION['cpf'];
 
             </div>
 
-            <!-- Area Chart Example-->
-           <!-- <img src="body.png" alt="" srcset="">-->
-            <!--<div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-chart-area"></i> Saida de chaves</div>
-                <div class="saida">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                            <input type="number" id="nchave" class="form-control" placeholder="Nº da chave" required="required">
-                            <label for="nchave">Nº da chave</label>
-
-                        </div>
-                        <div class="form-label-group" id="mquant">
-                            <input type="number" id="quant" class="form-control" placeholder="Quantidade" required="required">
-                            <label for="quant">Quantidade</label>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="card mb-3">
+             <!-- DataTables Example -->
+             <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-chart-area"></i> Entrada de chaves</div>
-                    <div class="entrada">
-                        <div class="form-label-group">
-                            <input type="number" id="nchave" class="form-control" placeholder="Nº da chave" required="required">
-                            <label for="nchave">Nº da chave</label>
+                        <i></i> Retirar Chaves 
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table">
+                            <form method="POST" action="../Controller/controllerHome.php">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="form-label-group">
+                                                <input type="num" id="num" name="num" class="form-control" placeholder="Nº da chave" required="required" autofocus="autofocus">
+                                                <label for="num">Nº da chave</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-label-group">
+                                                <input type="number" id="quant" class="form-control" name="quant" placeholder="Quantidade" maxlength="11" required="required">
+                                                <label for="quant">Quantidade</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-label-group">
+                                            <input type="submit" class="btn btn-primary btn-block" value="Enviar">
+                                               </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
 
                         </div>
-                        <div class="form-label-group" id="squant">
-                            <input type="number" id="squant" class="form-control" placeholder="Quantidade" required="required">
-                            <label for="quant">Quantidade</label>
-                        </div>
 
+                        
+                        
+                        </form>
                     </div>
                 </div>
 
+            </div>
 
-            </div>-->
+
+        </div>
+        
+        
+                        
+                        
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        
             <!-- /.container-fluid -->
 
             <!-- Sticky Footer -->
@@ -213,3 +236,4 @@ $logado = $_SESSION['cpf'];
 </body>
 
 </html>
+
